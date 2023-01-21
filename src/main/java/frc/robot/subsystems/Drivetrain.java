@@ -79,8 +79,8 @@ public class Drivetrain extends SubsystemBase {
     double xSpeed = xaxisSpeed * MaxXSpeed; // Forward/Backward speed capped at MaxXSpeed
     double rotSpeed = -zaxisRotate * MaxAngularSpeed; // Rotational speed capped at MaxAngularSpeed
     
-    // If you are not trying to turn
-    if (rotSpeed == 0) {
+    // If you are trying to go straight
+    if (rotSpeed == 0 && xSpeed != 0) {
       // If the romi is not already moving straight
       if (!straight) {
         // Set the start angle and set the straight variable to true because it is going straight now
@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase {
       rotSpeed = m_gyroPidController.calculate(offset, 0);
     }
     else {
-      // If trying to turn then you are not going straight - set it to false
+      // You are not going straight - set it to false
       straight = false;
     }
     // Update odometry to the current position
